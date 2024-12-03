@@ -9,9 +9,14 @@ This is a Rust implementation for Windows of the `touch` command found on UNIX-l
 
 ## Usage
 
-```shell
+```
 $ touch <file>
 ```
 
 If the file specified in the argument does not exist, it will be created.
 If the file already exists, its timestamp will be updated.
+
+### -c
+
+If you specify the option `c`, the file will not be created if it does noe exist.
+If it already exists, the timestamp will be updated as usual.
