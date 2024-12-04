@@ -67,6 +67,6 @@ PS C:\Program Files> mv ~\Downloads\touch.exe .
 You must run with administrator to place it in `C:\Program Files`,
 and although the examples use `C:\Program Files`, it is not necessary to place it there.
 
-### 3. Use "Edit the system environment variables" in the Control Panelto add the directory you placed there to your path.
+### 3. Use "Edit the system environment variables" in the Control Panel to add the directory you placed there to your path.
 
 ![Path](./assets/1b75bfa2-87e6-43bf-9fcd-6f5c93dabfe3.png)
