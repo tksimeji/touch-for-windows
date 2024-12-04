@@ -10,11 +10,13 @@ This is a Rust implementation for Windows of the `touch` command found on UNIX-l
 ## Usage
 
 ```
-$ touch <file>
+$ touch <file…>
 ```
 
 If the file specified in the argument does not exist, it will be created.
 If the file already exists, its timestamp will be updated.
+
+You can also list multiple files in the argument.
 
 ### -c
 
@@ -28,3 +30,6 @@ Specifies the timestamp.
 ### -r \<file\>
 
 Set the timestamp to the same time as another file.
+
+> [!TIP]
+> The d and r options cannot be specified at the same time.

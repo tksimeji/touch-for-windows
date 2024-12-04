@@ -59,7 +59,7 @@ fn main() -> io::Result<()> {
                     options.insert(option.name.to_string(), command_line_args[i + 1].clone());
                     i += 1;
                 } else {
-                    eprintln!("Error: Option '{}' requires a value", option.name);
+                    eprintln!("Error: Option '{}' requires a value.", option.name);
                 }
             } else {
                 options.insert(option.name.to_string(), String::from("true"));
@@ -71,20 +71,14 @@ fn main() -> io::Result<()> {
         i += 1;
     }
 
-    if args.len() != 1 {
+    if args.len() == 0 {
         eprintln!("Usage: {} <file>", command_line_args[0]);
         process::exit(1);
     }
 
-    let file_name = &args[0];
-    let file_path = Path::new(file_name);
-
-    if ! file_path.exists() {
-        if options.contains_key("c") {
-            process::exit(0);
-        }
-
-        File::create(file_path)?;
+    if options.contains_key("d") && options.contains_key("r") {
+        eprintln!("Error: Options d and r conflict and cannot be specified at the same time.");
+        process::exit(1);
     }
 
     let timestamp = if options.contains_key("d") {
@@ -108,7 +102,20 @@ fn main() -> io::Result<()> {
         FileTime::now()
     };
 
-    set_file_times(&file_path, timestamp, timestamp)?;
+    for arg in &args {
+        let file_name = arg;
+        let file_path = Path::new(file_name);
+
+        if ! file_path.exists() {
+            if options.contains_key("c") {
+                process::exit(0);
+            }
+
+            File::create(file_path)?;
+        }
+
+        set_file_times(&file_path, timestamp, timestamp)?;
+    }
 
     Ok(())
 }
