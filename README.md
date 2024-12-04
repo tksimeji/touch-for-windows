@@ -1,5 +1,8 @@
 # Touch for Windows
 
+![Version](https://img.shields.io/badge/version-0.3.1-blue?style=flat-square)
+![Licence](https://img.shields.io/badge/licence-MIT-red?style=flat-square)
+
 This is a Rust implementation for Windows of the `touch` command found on UNIX-like operating systems.
 
 > [!IMPORTANT]
