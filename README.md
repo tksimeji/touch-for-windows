@@ -24,3 +24,7 @@ If it already exists, the timestamp will be updated as usual.
 ### -d <%Y-%m-%d %H:%M:%S>
 
 Specifies the timestamp.
+
+### -r \<file\>
+
+Set the timestamp to the same time as another file.

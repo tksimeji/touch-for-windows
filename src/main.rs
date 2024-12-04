@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::fs::File;
 use std::path::Path;
-use std::{env, io, process};
+use std::{env, fs, io, process};
 
 use chrono::{Local, NaiveDateTime, TimeZone, Utc};
 use filetime::{set_file_times, FileTime};
@@ -19,6 +19,10 @@ impl CommandOption {
         },
         CommandOption {
             name: "d",
+            has_value: true,
+        },
+        CommandOption {
+            name: "r",
             has_value: true,
         }
     ];
@@ -88,6 +92,18 @@ fn main() -> io::Result<()> {
         let datetime_local = Local.from_local_datetime(&datetime).unwrap();
         let utc_datetime = datetime_local.with_timezone(&Utc);
         FileTime::from_unix_time(utc_datetime.timestamp(), 0)
+    } else if options.contains_key("r") {
+        let target = &options["r"];
+
+        match fs::metadata(target) {
+            Ok(metadata) => {
+                FileTime::from_last_modification_time(&metadata)
+            }
+            Err(err) => {
+                println!("Error: {}", err);
+                process::exit(1);
+            }
+        }
     } else {
         FileTime::now()
     };
