@@ -1,7 +1,9 @@
-use std::{env, io, process};
 use std::collections::HashMap;
 use std::fs::File;
 use std::path::Path;
+use std::{env, io, process};
+
+use chrono::{Local, NaiveDateTime, TimeZone, Utc};
 use filetime::{set_file_times, FileTime};
 
 struct CommandOption {
@@ -14,6 +16,10 @@ impl CommandOption {
         CommandOption {
             name: "c",
             has_value: false,
+        },
+        CommandOption {
+            name: "d",
+            has_value: true,
         }
     ];
 
@@ -77,9 +83,16 @@ fn main() -> io::Result<()> {
         File::create(file_path)?;
     }
 
-    let now = FileTime::now();
+    let timestamp = if options.contains_key("d") {
+        let datetime = NaiveDateTime::parse_from_str(&options["d"], "%Y-%m-%d %H:%M:%S").unwrap();
+        let datetime_local = Local.from_local_datetime(&datetime).unwrap();
+        let utc_datetime = datetime_local.with_timezone(&Utc);
+        FileTime::from_unix_time(utc_datetime.timestamp(), 0)
+    } else {
+        FileTime::now()
+    };
 
-    set_file_times(&file_path, now, now)?;
+    set_file_times(&file_path, timestamp, timestamp)?;
 
     Ok(())
 }

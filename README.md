@@ -20,3 +20,7 @@ If the file already exists, its timestamp will be updated.
 
 If you specify the option `c`, the file will not be created if it does noe exist.
 If it already exists, the timestamp will be updated as usual.
+
+### -d <%Y-%m-%d %H:%M:%S>
+
+Specifies the timestamp.
