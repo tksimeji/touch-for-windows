@@ -58,7 +58,7 @@ PS C:\Program Files> mkdir touch-for-windows
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
-d-----         12/4/2024  12:35 PM                touch-for-windows
+d-----         0/0/0000  00:00 PM                touch-for-windows
 
 
 PS C:\Program Files> mv ~\Downloads\touch.exe .
